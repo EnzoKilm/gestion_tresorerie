@@ -1,26 +1,28 @@
 <?php
 
-namespace App;
+namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
-class Depense extends Model
+class HomeController extends Controller
 {
-    protected $table = "depenses";
-    protected $fillable = [
-        "designation",
-        "date",
-        "amount",
-        "tva_id"
-    ];
-
-    public function tva()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-    	return $this->belongsTo(Tva::class, 'tva_id');
+        $this->middleware('auth');
     }
 
-    public function type_paiement()
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
     {
-    	return $this->belongsTo(TypePaiement::class, 'type_paiement_id');
+        return view('home');
     }
 }

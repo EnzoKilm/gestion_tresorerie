@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 // Routes pour la partie recettes
 Route::get('/recettes', 'RecetteController@index')->name('recette.index');
 Route::get('/recettes/{id}/show', 'RecetteController@show')->name('recette.show');
