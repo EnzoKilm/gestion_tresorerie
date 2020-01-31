@@ -19,17 +19,16 @@
         <li>
             <p><u>TVA :</u> {{ $recette->tva->rate }}%</p>
         </li>
+        <?php if (isset($recette->montant_remise)) { echo '<li><p><u>Remise :</u> '.$recette->discount.$recette->discount_type.'</p></li>';} ?>
     </ul>
     <ol>
         <li>
-            <p><u>Montant TVA :</u> {{ $recette->amount*$recette->tva->rate/100 }}</p>
+            <p><u>Montant TVA :</u> {{ $recette->montant_tva }}</p>
         </li>
         <li>
-            <p><u>Montant TTC :</u> {{ $recette->amount-$recette->amount*$recette->tva->rate/100 }}</p>
+            <p><u>Montant TTC :</u> {{ $recette->montant_ttc }}</p>
         </li>
-        <li>
-            <p><u>Remise :</u> {{ $recette->discount }}{{ $recette->discount_type }}</p>
-        </li>
+        <?php if (isset($recette->montant_remise)) { echo '<li><p><u>Montant avec remise :</u> '.$recette->montant_remise.'</p></li>';} ?>
 	</ol>
 	<a href="{{ route('recette.edit', $recette->id) }}" title="modifier la recette">Modifier la recette</a>
 	<a href="{{ route('recette.delete', $recette->id) }}" title="supprimer la recette">Supprimer la recette</a>

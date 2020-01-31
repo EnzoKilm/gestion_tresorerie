@@ -47,3 +47,12 @@ Route::post('/types_paiements/store', 'TypePaiementController@store')->name('typ
 Route::get('/types_paiements/{id}/edit', 'TypePaiementController@edit')->name('type_paiement.edit');
 Route::put('/types_paiements/{id}/update', 'TypePaiementController@update')->name('type_paiement.update');
 Route::get('/types_paiements/{id}/delete', 'TypePaiementController@delete')->name('type_paiement.delete');
+
+// Routes pour la partie types de paiement
+Route::get('/depenses', 'DepenseController@index')->name('depense.index');
+Route::get('/depenses/{id}/show', 'DepenseController@show')->name('depense.show');
+Route::get('/depenses/add', 'DepenseController@add')->name('depense.add');
+Route::post('/depenses/store', 'DepenseController@store')->name('depense.store');
+Route::get('/depenses/{id}/edit', 'DepenseController@edit')->name('depense.edit');
+Route::put('/depenses/{id}/update', 'DepenseController@update')->name('depense.update');
+Route::get('/depenses/{id}/delete', 'DepenseController@delete')->name('depense.delete');

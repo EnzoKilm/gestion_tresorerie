@@ -17,7 +17,8 @@ class RecetteController extends Controller
 
     public function show($recetteId)
     {
-    	$recette = Recette::find($recetteId);
+        $this->calculation($recetteId);
+        $recette = Recette::find($recetteId);
     	return view("recettes.show", compact('recette'));
     }
 
@@ -35,16 +36,33 @@ class RecetteController extends Controller
     	$recette->amount = $request->get('amount');
     	$recette->tva_id = $request->get('tva_id');
     	$recette->discount = $request->get('discount');
-    	$recette->discount_type = $request->get('discount_type');
+        if (isset($recette->discount)) {
+            $recette->discount_type = $request->get('discount_type');
+        }
     	$recette->save();
     	return redirect()->route('recette.index');
+    }
+
+    public function calculation($recetteId)
+    {
+        $recette = Recette::find($recetteId);
+        $recette->montant_tva = $recette->amount*$recette->tva->rate/100;
+        $recette->montant_ttc = $recette->amount-$recette->montant_tva;
+        if (isset($recette->discount)) {
+            if ($recette->discount_type == "%") {
+                $recette->montant_remise = $recette->montant_ttc-$recette->montant_ttc*$recette->discount/100;
+            } else {
+                $recette->montant_remise = $recette->montant_ttc-$recette->discount;
+            }
+        }
+    	$recette->save();
     }
 
     public function edit($recetteId)
     {
     	$recette = Recette::find($recetteId);
         $tvas = Tva::all();
-    	return view('recettes.edit', compact('recette'), compact('tvas'));
+    	return view('recettes.edit', compact('recette', 'tvas'));
     }
 
     public function update(Request $request, $recetteId)

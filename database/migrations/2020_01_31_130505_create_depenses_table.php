@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecettesTable extends Migration
+class CreateDepensesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRecettesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recettes', function (Blueprint $table) {
+        Schema::create('depenses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('designation');
             $table->date('date');
@@ -22,6 +22,11 @@ class CreateRecettesTable extends Migration
             $table->foreign('tva_id')
                     ->references('id')
                     ->on('tva')
+                    ->onDelete('SET NULL');
+            $table->bigInteger('type_paiement_id')->nullable()->unsigned();
+            $table->foreign('type_paiement_id')
+                    ->references('id')
+                    ->on('type_paiement')
                     ->onDelete('SET NULL');
             $table->float('discount', 10, 2)->nullable();
             $table->enum('discount_type', ['€', '%'])->nullable();
@@ -39,6 +44,6 @@ class CreateRecettesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recettes');
+        Schema::dropIfExists('depenses');
     }
 }

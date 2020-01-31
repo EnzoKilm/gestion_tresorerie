@@ -17,9 +17,9 @@
             @endforeach
         </select>
 		<input type="number" name="discount" step=0.01 value="{{ $recette->discount }}">
-        <select name="discount_type" size="1" value="{{ $recette->discount_type }}>
-            <option value="€">€</option>
+        <select name="discount_type" size="1" value="{{ $recette->discount_type }}">
             <option value="%">%</option>
+            <option value="€">€</option>
         </select>
 		<button type="submit">Envoyer</button>
 	</form>
