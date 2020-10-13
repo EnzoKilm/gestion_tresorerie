@@ -1,4 +1,4 @@
-# Gestion de trésorerie
+# Exercice de gestion de trésorerie
 
 ## Créer plusieurs classes avec les classes (-) et les méthodes (=>) 
 
